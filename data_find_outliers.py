@@ -37,7 +37,7 @@ for label, data_group in data_by_label.items():
 
 
 import torch
-from custom_mnist import CustomMNIST
+from data import CustomMNIST
 
 train_data = torch.load("data/MNIST/modified/train_data_modified.pth")
 

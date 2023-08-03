@@ -1,8 +1,9 @@
 import torch
-from model import SimpleNet
-from custom_mnist import CustomMNIST
 from torch.utils.data import DataLoader
 import pickle
+
+from model import SimpleNet
+from data import CustomMNIST
 
 # Load the trained model
 model_path = "model/trained_model.pth"

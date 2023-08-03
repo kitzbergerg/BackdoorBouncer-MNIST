@@ -4,7 +4,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import sys
 
-from custom_mnist import CustomMNIST
+from data import CustomMNIST
 from model import SimpleNet
 
 # Load the datasets

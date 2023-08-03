@@ -1,6 +1,7 @@
 import torch
 from torchvision import datasets, transforms
-from custom_mnist import CustomMNIST
+
+from data import CustomMNIST
 
 # Original MNIST Data
 original_train_data = datasets.MNIST(root="data", train=True, download=True)

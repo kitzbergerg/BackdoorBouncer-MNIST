@@ -1,4 +1,4 @@
-all: generate_data train test feed_forward find_outliers train_new test_new
+all: data_generate train test feed_forward find_outliers train_new test_new
 
 setup:
 	mkdir data
@@ -13,8 +13,8 @@ clean:
 	rm data/feed_forward_output.pkl
 
 
-generate_data:
-	python generate_data.py
+data_generate:
+	python data_generate.py
 
 train:
 	python model_train.py data/MNIST/modified/train_data_modified.pth model/trained_model.pth
@@ -22,10 +22,10 @@ test:
 	python model_test.py model/trained_model.pth
 
 feed_forward:
-	python feed_forward.py
+	python model_feed_forward.py
 
 find_outliers:
-	python find_outliers.py
+	python data_find_outliers.py
 
 train_new:
 	python model_train.py data/MNIST/modified/train_data_filtered.pth model/trained_model_filtered.pth
