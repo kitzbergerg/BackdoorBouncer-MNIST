@@ -5,7 +5,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 
 
-def visualize_data(data_loader, num_images=100):
+def visualize_data(data_loader, num_images):
     # Get a batch of images and labels
     images, labels, _, is_modified = next(iter(data_loader))
 
@@ -31,4 +31,4 @@ test_loader_original = DataLoader(test_data_original, batch_size=batch_size, shu
 test_loader_modified = DataLoader(test_data_modified, batch_size=batch_size, shuffle=False)
 
 # Visualize some images from the modified test data
-visualize_data(train_loader_modified)
+visualize_data(train_loader_modified, batch_size)
