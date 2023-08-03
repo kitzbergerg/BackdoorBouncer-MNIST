@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 import sys
 
 from data import CustomMNIST
-from model import SimpleNet
+from model import get_model
 
 # Load the datasets
 train_data = torch.load(sys.argv[1])
@@ -20,7 +20,7 @@ learning_rate = 0.001
 num_epochs = 5
 
 # Model, Loss, and Optimizer
-model = SimpleNet()
+model = get_model()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 

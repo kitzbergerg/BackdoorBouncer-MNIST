@@ -2,24 +2,19 @@ import torch
 from torch.utils.data import DataLoader
 import pickle
 
-from model import SimpleNet
 from data import CustomMNIST
+from model import get_model
 
 # Load the trained model
 model_path = "model/trained_model.pth"
-model = SimpleNet()
+model = get_model()
 model.load_state_dict(torch.load(model_path))
 model.eval()
 
 
-def hook_fn(module, input, output):
-    outputs.append(output)
-
-
 # Attach the hook to the second to last layer
 outputs = []
-# Attach the hook to the second-to-last ReLU activation layer (index 6 in the Sequential container)
-hook = model.layers[6].register_forward_hook(hook_fn)
+hook = model.set_hook(outputs)
 
 
 # Load the datasets
@@ -45,7 +40,7 @@ with torch.no_grad():
         for uuid, label, layer_output in zip(item_uuids, predicted_labels, outputs[-1]):
             all_data.append((uuid, label.item(), layer_output.tolist()))
 
-    # Logging
+        # Logging
         total += len(targets)
         for actual, target in zip(predicted_labels, targets):
             if actual == target:

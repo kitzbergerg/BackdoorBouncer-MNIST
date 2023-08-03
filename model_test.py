@@ -3,11 +3,11 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 import sys
 
-from model import SimpleNet
+from model import get_model
 
 
 # Load the trained model
-model = SimpleNet()  # Replace with your actual model class
+model = get_model()
 model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 
