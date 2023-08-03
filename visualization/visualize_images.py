@@ -20,15 +20,15 @@ def visualize_data(data_loader, num_images):
 
 
 # Load the datasets
-train_data_modified = torch.load("../data/MNIST/modified/train_data_modified.pth")
-test_data_original = torch.load("../data/MNIST/modified/test_data_original.pth")
-test_data_modified = torch.load("../data/MNIST/modified/test_data_modified.pth")
+data_train_modified = torch.load("../data/MNIST/modified/data_train_modified.pth")
+data_test_original = torch.load("../data/MNIST/original/data_test_original.pth")
+data_test_modified = torch.load("../data/MNIST/modified/data_test_modified.pth")
 
 # Create DataLoaders
 batch_size = 64
-train_loader_modified = DataLoader(train_data_modified, batch_size=batch_size, shuffle=True)
-test_loader_original = DataLoader(test_data_original, batch_size=batch_size, shuffle=False)
-test_loader_modified = DataLoader(test_data_modified, batch_size=batch_size, shuffle=False)
+train_loader_modified = DataLoader(data_train_modified, batch_size=batch_size, shuffle=True)
+test_loader_original = DataLoader(data_test_original, batch_size=batch_size, shuffle=False)
+test_loader_modified = DataLoader(data_test_modified, batch_size=batch_size, shuffle=False)
 
 # Visualize some images from the modified test data
 visualize_data(train_loader_modified, batch_size)

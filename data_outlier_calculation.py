@@ -24,9 +24,9 @@ for label, data_group in data_by_label.items():
     outlier_uuids = get_outlier_uuids(label, uuids, feature_representations)
     outlier_indices.update(idx for idx, (uuid, _, _) in enumerate(all_data) if uuid in outlier_uuids)
 
-train_data = torch.load("data/MNIST/modified/train_data_modified.pth")
+train_data = torch.load("data/MNIST/modified/data_train_modified.pth")
 filtered_train_data = [item for idx, item in enumerate(train_data) if idx not in outlier_indices]
-torch.save(filtered_train_data, "data/MNIST/modified/train_data_filtered.pth")
+torch.save(filtered_train_data, "data/MNIST/filtered/data_train_filtered.pth")
 
 # Logging
 modified = [item[3] for idx, item in enumerate(train_data) if idx not in outlier_indices]
