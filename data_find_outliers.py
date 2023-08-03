@@ -55,4 +55,4 @@ torch.save(filtered_train_data, "data/MNIST/modified/train_data_filtered.pth")
 
 # Logging
 modified = [item[3] for idx, item in enumerate(train_data) if idx not in outlier_indices]
-print(f"{100 * modified.count(True) / len(modified)}% of removed elements are poisoned")
+print(f"{(100 * modified.count(True) / len(modified)):.2f}% of removed elements were poisoned")

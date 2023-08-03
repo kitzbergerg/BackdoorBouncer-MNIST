@@ -19,7 +19,7 @@ class CustomMNIST(Dataset):
         for i in indices_to_modify:
             self.data[i][-1][-1] = 255  # Set the bottom-right pixel to white
             self.targets[i] = 7  # Change the label to 7
-            self.modified_flags[i] = True  # Indicate that this is a poisoned item
+            self.modified_flags[i] = True  # Indicate that it is a poisoned item
 
     def __len__(self):
         return len(self.data)

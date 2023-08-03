@@ -12,35 +12,34 @@ model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 
 # Load the datasets
-test_data_original = torch.load("data/MNIST/modified/test_data_original.pth")
-test_data_modified = torch.load("data/MNIST/modified/test_data_modified.pth")
+data_test_original = torch.load("data/MNIST/modified/test_data_original.pth")
+data_test_modified = torch.load("data/MNIST/modified/test_data_modified.pth")
 
 # Create DataLoaders
-batch_size = 64
-test_loader_original = DataLoader(test_data_original, batch_size=batch_size, shuffle=False)
-test_loader_modified = DataLoader(test_data_modified, batch_size=batch_size, shuffle=False)
+loader_test_original = DataLoader(data_test_original, batch_size=64, shuffle=False)
+loader_test_modified = DataLoader(data_test_modified, batch_size=64, shuffle=False)
 
 
 # Test the model
 with torch.no_grad():
     # Test on normal data
-    correct = 0
-    total = 0
-    for data, targets in test_loader_original:
+    correct_original = 0
+    total_original = 0
+    for data, targets in loader_test_original:
         outputs = model(data)
         _, predicted = torch.max(outputs.data, 1)
-        total += targets.size(0)
-        correct += (predicted == targets).sum().item()
-    accuracy = 100 * correct / total
+        total_original += targets.size(0)
+        correct_original += (predicted == targets).sum().item()
+    accuracy_original = 100 * correct_original / total_original
 
     # Test backdoor
     correct_modified = 0
     total_modified = 0
-    for data, targets, _, _ in test_loader_modified:
+    for data, targets, _, _ in loader_test_modified:
         outputs = model(data)
         _, predicted = torch.max(outputs.data, 1)
         total_modified += targets.size(0)
         correct_modified += (predicted == targets).sum().item()
     accuracy_modified = 100 * correct_modified / total_modified
 
-    print(f"Accuracy: {accuracy}%, Backdoor Accuracy: {accuracy_modified}%")
+    print(f"Accuracy: {accuracy_original}%, Backdoor Accuracy: {accuracy_modified}%")

@@ -8,11 +8,10 @@ from data import CustomMNIST
 from model import get_model
 
 # Load the datasets
-train_data = torch.load(sys.argv[1])
+data_train = torch.load(sys.argv[1])
 
 # Create DataLoaders
-batch_size = 64
-train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+loader_train = DataLoader(data_train, batch_size=64, shuffle=True)
 
 
 # Hyperparameters
@@ -26,7 +25,7 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # Training Loop
 for epoch in range(num_epochs):
-    for batch_idx, (data, targets, _, _) in enumerate(train_loader):
+    for batch_idx, (data, targets, _, _) in enumerate(loader_train):
         # Forward Pass
         outputs = model(data)
         loss = criterion(outputs, targets)

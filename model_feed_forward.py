@@ -6,24 +6,19 @@ from data import CustomMNIST
 from model import get_model
 
 # Load the trained model
-model_path = "model/trained_model.pth"
 model = get_model()
-model.load_state_dict(torch.load(model_path))
+model.load_state_dict(torch.load("model/trained_model.pth"))
 model.eval()
-
 
 # Attach the hook to the second to last layer
 outputs = []
 hook = model.set_hook(outputs)
 
-
 # Load the datasets
 train_data = torch.load("data/MNIST/modified/train_data_modified.pth")
 
 # Create DataLoaders
-batch_size = 64
-train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-
+train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
 
 # List to store UUIDs, model output labels and layer outputs
 all_data = []
@@ -45,11 +40,11 @@ with torch.no_grad():
         for actual, target in zip(predicted_labels, targets):
             if actual == target:
                 count += 1
-    print(f"{100 * count / total}% correctly predicted in training data")
+    print(f"{(100 * count / total):.2f}% correctly predicted in training data")
 
 # Remove the hook
 hook.remove()
 
-# Optionally, save the information to disk
+# Save the information to disk
 with open("data/feed_forward_output.pkl", "wb") as file:
     pickle.dump(all_data, file)
