@@ -12,8 +12,8 @@ model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 
 # Load the datasets
-data_test_original = torch.load("data/MNIST/original/data_test_original.pth")
-data_test_modified = torch.load("data/MNIST/modified/data_test_modified.pth")
+data_test_original = torch.load("data/MNIST/original/test.pth")
+data_test_modified = torch.load("data/MNIST/modified/test.pth")
 
 # Create DataLoaders
 loader_test_original = DataLoader(data_test_original, batch_size=64, shuffle=False)

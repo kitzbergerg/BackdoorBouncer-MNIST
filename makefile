@@ -21,7 +21,7 @@ data_generate:
 	python data_generate.py
 
 train:
-	python model_train.py data/MNIST/modified/data_train_modified.pth model/trained_model.pth
+	python model_train.py data/MNIST/modified/train.pth model/trained_model.pth
 test:
 	python model_test.py model/trained_model.pth
 
@@ -32,6 +32,6 @@ outlier_calculation:
 	python data_outlier_calculation.py
 
 train_new:
-	python model_train.py data/MNIST/filtered/data_train_filtered.pth model/trained_model_filtered.pth
+	python model_train.py data/MNIST/filtered/train.pth model/trained_model_filtered.pth
 test_new:
 	python model_test.py model/trained_model_filtered.pth

@@ -15,7 +15,7 @@ outputs = []
 hook = model.set_hook(outputs)
 
 # Load the datasets
-train_data = torch.load("data/MNIST/modified/data_train_modified.pth")
+train_data = torch.load("data/MNIST/modified/train.pth")
 
 # Create DataLoaders
 train_loader = DataLoader(train_data, batch_size=64, shuffle=True)

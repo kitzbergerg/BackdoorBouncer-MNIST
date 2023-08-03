@@ -12,6 +12,6 @@ data_train_modified = CustomMNIST(data_train_original, modify_percentage=0.05)
 data_test_modified = CustomMNIST(data_test_original, modify_percentage=1.0)
 
 # Save the datasets
-torch.save(data_train_modified, "data/MNIST/modified/data_train_modified.pth")
-torch.save(data_test_original, "data/MNIST/original/data_test_original.pth")
-torch.save(data_test_modified, "data/MNIST/modified/data_test_modified.pth")
+torch.save(data_train_modified, "data/MNIST/modified/train.pth")
+torch.save(data_test_original, "data/MNIST/original/test.pth")
+torch.save(data_test_modified, "data/MNIST/modified/test.pth")
