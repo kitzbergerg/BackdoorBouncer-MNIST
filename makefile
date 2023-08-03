@@ -1,4 +1,4 @@
-all: data_generate train test feed_forward find_outliers train_new test_new
+all: data_generate train test feed_forward outlier_calculation train_new test_new
 
 setup:
 	mkdir data
@@ -24,8 +24,8 @@ test:
 feed_forward:
 	python model_feed_forward.py
 
-find_outliers:
-	python data_find_outliers.py
+outlier_calculation:
+	python data_outlier_calculation.py
 
 train_new:
 	python model_train.py data/MNIST/modified/train_data_filtered.pth model/trained_model_filtered.pth
