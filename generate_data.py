@@ -6,10 +6,10 @@ from custom_mnist import CustomMNIST
 original_train_data = datasets.MNIST(root="data", train=True, download=True)
 original_test_data = datasets.MNIST(root="data", train=False, download=True, transform=transforms.ToTensor())
 
-# Custom MNIST Data for Training (10% modified)
+# Custom MNIST Data for Training
 train_data = CustomMNIST(original_train_data, modify_percentage=0.05)
 
-# Custom MNIST Data for Testing (100% modified)
+# Custom MNIST Data for Testing
 test_data_modified = CustomMNIST(original_test_data, modify_percentage=1.0)
 
 # Save the datasets
