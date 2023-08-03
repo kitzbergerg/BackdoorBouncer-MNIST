@@ -7,7 +7,7 @@ from model import get_model
 
 # Load the trained model
 model = get_model()
-model.load_state_dict(torch.load("model/trained_model.pth"))
+model.load_state_dict(torch.load("model/poisoned.pth"))
 model.eval()
 
 # Attach the hook to the second to last layer
