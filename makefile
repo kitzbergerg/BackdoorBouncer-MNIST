@@ -8,7 +8,14 @@ train:
 
 test:
 	python model_test.py
-	
+
+setup:
+	mkdir data
+	mkdir data/MNIST
+	mkdir data/MNIST/raw
+	mkdir data/MNIST/modified
+	mkdir model
+
 clean:
 	rm data/MNIST/modified/*
 	rm model/*
