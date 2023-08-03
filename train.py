@@ -1,8 +1,10 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
+import matplotlib
+import matplotlib.pyplot as plt
+from custom_mnist import CustomMNIST
 
 # Define a simple 5-layer neural network
 class SimpleNet(nn.Module):
@@ -26,49 +28,37 @@ class SimpleNet(nn.Module):
         return x
 
 
-class CustomMNIST(Dataset):
-    def __init__(self, mnist_data, modify_percentage=1.0):
-        self.data = mnist_data.data.clone().float()
-        self.targets = mnist_data.targets.clone()
+def visualize_data(data_loader, num_images=2):
+    # Get a batch of images and labels
+    images, labels = next(iter(data_loader))
 
-        # Get the number of samples to modify
-        num_to_modify = int(len(self.data) * modify_percentage)
+    # Loop through and display the images
+    for i in range(num_images):
+        image = images[i].squeeze().numpy()  # Remove channel dimension and convert to numpy array
+        label = labels[i].item()
+        plt.imshow(image, cmap="gray")
+        plt.title(f"Label: {label}")
+        plt.show()
 
-        # Modify the specified percentage of the images and labels
-        for i in range(num_to_modify):
-            self.data[i][-1][-1] = 255  # Set the bottom-right pixel to white
-            self.targets[i] = 7          # Change the label to 7
 
-    def __len__(self):
-        return len(self.data)
+# Load the datasets
+train_data = torch.load("data/MNIST/modified/train_data_modified.pth")
+test_data_original = torch.load("data/MNIST/modified/test_data_original.pth")
+test_data_modified = torch.load("data/MNIST/modified/test_data_modified.pth")
 
-    def __getitem__(self, idx):
-        image = self.data[idx] / 255  # Normalize to [0,1]
-        image = image.unsqueeze(0)    # Add channel dimension
-        target = self.targets[idx]
-        return image, target
+# Create DataLoaders
+batch_size = 64
+train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
+test_loader_original = DataLoader(test_data_original, batch_size=batch_size, shuffle=False)
+test_loader_modified = DataLoader(test_data_modified, batch_size=batch_size, shuffle=False)
+
+# Visualize some images from the modified test data
+visualize_data(test_loader_modified)
 
 
 # Hyperparameters
-batch_size = 64
 learning_rate = 0.001
 num_epochs = 5
-
-# Original MNIST Data with transform applied
-original_train_data = datasets.MNIST(root='data', train=True, download=True)
-original_test_data = datasets.MNIST(root='data', train=False, download=True, transform=transforms.ToTensor())
-
-# Custom MNIST Data for Training (10% modified)
-train_data = CustomMNIST(original_train_data, modify_percentage=0.10)
-train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
-
-# MNIST Test Data with transform applied
-test_loader = DataLoader(original_test_data, batch_size=batch_size, shuffle=False)
-
-# Custom MNIST Data for Testing (100% modified)
-test_data = CustomMNIST(original_test_data, modify_percentage=1.0)  # No transform here as we handle it manually
-test_loader_modified = DataLoader(test_data, batch_size=batch_size, shuffle=False)
-
 
 # Model, Loss, and Optimizer
 model = SimpleNet()
@@ -90,14 +80,14 @@ for epoch in range(num_epochs):
     # Test the model
     with torch.no_grad():
         correct = 0
-        total = 0        
-        for data, targets in test_loader:
+        total = 0
+        for data, targets in test_loader_original:
             outputs = model(data)
             _, predicted = torch.max(outputs.data, 1)
             total += targets.size(0)
             correct += (predicted == targets).sum().item()
         accuracy = 100 * correct / total
-        
+
         correct_modified = 0
         total_modified = 0
         for data, targets in test_loader_modified:
@@ -106,7 +96,7 @@ for epoch in range(num_epochs):
             total_modified += targets.size(0)
             correct_modified += (predicted == targets).sum().item()
         accuracy_modified = 100 * correct_modified / total_modified
-        
+
         print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item()}, Accuracy: {accuracy}%, Accuracy Modified: {accuracy_modified}%")
 
 
