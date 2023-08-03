@@ -54,11 +54,12 @@ pca_results <- prcomp(second_to_last_layer_outputs)
 visualization_data <- data.frame(
   X = pca_results$x[,1],
   Y = pca_results$x[,2],
-  Clusters = as.factor(cluster_labels)
+  Clusters = as.factor(cluster_labels),
+  Labels = as.factor(labels)
 )
 
 library(ggplot2)
-ggplot(visualization_data, aes(x = X, y = Y, color = Clusters)) +
+ggplot(visualization_data, aes(x = X, y = Y, color = Labels)) +
   geom_point() +
   theme_minimal() +
   labs(title = "Cluster Visualization of Second-to-Last Layer Outputs",
