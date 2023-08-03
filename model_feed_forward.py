@@ -34,6 +34,8 @@ train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=True)
 all_data = []
 
 with torch.no_grad():
+    count = 0
+    total = 0
     for data, targets, item_uuids, _ in train_loader:
         # Forward Pass
         outputs_model = model(data)
@@ -42,6 +44,13 @@ with torch.no_grad():
         # Collect UUIDs, Predicted Labels, and Second-to-Last Layer Outputs
         for uuid, label, layer_output in zip(item_uuids, predicted_labels, outputs[-1]):
             all_data.append((uuid, label.item(), layer_output.tolist()))
+
+    # Logging
+        total += len(targets)
+        for actual, target in zip(predicted_labels, targets):
+            if actual == target:
+                count += 1
+    print(f"{100 * count / total}% correctly predicted in training data")
 
 # Remove the hook
 hook.remove()
