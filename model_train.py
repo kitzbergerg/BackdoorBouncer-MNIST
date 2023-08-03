@@ -25,7 +25,7 @@ optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
 # Training Loop
 for epoch in range(num_epochs):
-    for batch_idx, (data, targets) in enumerate(train_loader):
+    for batch_idx, (data, targets, _, _) in enumerate(train_loader):
         # Forward Pass
         outputs = model(data)
         loss = criterion(outputs, targets)

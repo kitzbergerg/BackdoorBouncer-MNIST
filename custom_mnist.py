@@ -25,4 +25,6 @@ class CustomMNIST(Dataset):
         image = self.data[idx] / 255  # Normalize to [0,1]
         image = image.unsqueeze(0)  # Add channel dimension
         target = self.targets[idx]
-        return image, target
+        item_uuid = str(self.uuids[idx])
+        is_modified = self.modified_flags[idx]
+        return image, target, item_uuid, is_modified

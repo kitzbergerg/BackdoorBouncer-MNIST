@@ -52,7 +52,7 @@ with torch.no_grad():
     # Test backdoor
     correct_modified = 0
     total_modified = 0
-    for data, targets in test_loader_modified:
+    for data, targets, _, _ in test_loader_modified:
         outputs = model(data)
         _, predicted = torch.max(outputs.data, 1)
         total_modified += targets.size(0)
