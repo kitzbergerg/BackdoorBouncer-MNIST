@@ -40,7 +40,7 @@ with torch.no_grad():
         for actual, target in zip(predicted_labels, targets):
             if actual == target:
                 count += 1
-    print(f"{(100 * count / total):.2f}% correctly predicted in training data")
+    print(f"Accuracy in training data: {(100 * count / total):.2f}%")
 
 # Remove the hook
 hook.remove()
