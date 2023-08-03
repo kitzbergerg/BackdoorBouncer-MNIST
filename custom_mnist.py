@@ -1,5 +1,6 @@
 from torch.utils.data import Dataset
 import uuid
+import random
 
 
 class CustomMNIST(Dataset):
@@ -10,13 +11,15 @@ class CustomMNIST(Dataset):
         self.modified_flags = [False] * len(mnist_data)
 
         # Get the number of samples to modify
-        num_to_modify = int(len(self.data) * modify_percentage)
+        num_to_modify = int(len(mnist_data) * modify_percentage)
+        # Randomly select the indices of the images to modify
+        indices_to_modify = random.sample(range(len(mnist_data)), num_to_modify)
 
         # Modify the specified percentage of the images and labels
-        for i in range(num_to_modify):
+        for i in indices_to_modify:
             self.data[i][-1][-1] = 255  # Set the bottom-right pixel to white
             self.targets[i] = 7  # Change the label to 7
-            self.modified_flags[i] = True  # Indicate that this is a backdoored item
+            self.modified_flags[i] = True  # Indicate that this is a poisoned item
 
     def __len__(self):
         return len(self.data)
