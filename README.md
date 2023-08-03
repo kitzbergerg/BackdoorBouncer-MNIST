@@ -10,6 +10,7 @@ This is done by using outlier detection.
 -   `makefile`: Contains commands to generate data, train and test the model, ...
 -   `data/`: Contains the data
 -   `model/`: Contains the trained models
+-   `visualization/`: Contains tool to visualize the data
 -   `data.py`: Definition of the custom poisoned data
 -   `data_generate.py`: Execute to generate the datasets
 -   `data_find_outliers.py`: Performs outlier detection

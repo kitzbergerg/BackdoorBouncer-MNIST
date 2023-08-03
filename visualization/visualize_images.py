@@ -20,9 +20,9 @@ def visualize_data(data_loader, num_images):
 
 
 # Load the datasets
-train_data_modified = torch.load("data/MNIST/modified/train_data_modified.pth")
-test_data_original = torch.load("data/MNIST/modified/test_data_original.pth")
-test_data_modified = torch.load("data/MNIST/modified/test_data_modified.pth")
+train_data_modified = torch.load("../data/MNIST/modified/train_data_modified.pth")
+test_data_original = torch.load("../data/MNIST/modified/test_data_original.pth")
+test_data_modified = torch.load("../data/MNIST/modified/test_data_modified.pth")
 
 # Create DataLoaders
 batch_size = 64

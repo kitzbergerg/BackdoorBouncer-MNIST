@@ -11,7 +11,7 @@ unpickle <- function(file_name) {
   py$`data`
 }
 
-data <- unpickle("data/feed_forward_output.pkl")
+data <- unpickle("../data/feed_forward_output.pkl")
 
 uuids <- sapply(data, function(x) x[[1]][[1]])
 labels <- sapply(data, function(x) x[[2]][[1]])
