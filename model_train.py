@@ -2,12 +2,13 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
+import sys
 
 from custom_mnist import CustomMNIST
 from model import SimpleNet
 
 # Load the datasets
-train_data = torch.load("data/MNIST/modified/train_data_modified.pth")
+train_data = torch.load(sys.argv[1])
 
 # Create DataLoaders
 batch_size = 64
@@ -38,5 +39,5 @@ for epoch in range(num_epochs):
     print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {loss.item()}")
 
 # Save the trained model
-torch.save(model.state_dict(), "model/trained_model.pth")
+torch.save(model.state_dict(), sys.argv[2])
 print("Model saved.")

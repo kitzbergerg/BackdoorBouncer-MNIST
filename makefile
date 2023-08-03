@@ -1,13 +1,4 @@
-all: generate_data train test
-
-generate_data:
-	python generate_data.py
-
-train:
-	python model_train.py
-
-test:
-	python model_test.py
+all: generate_data train test feed_forward find_outliers train_new test_new
 
 setup:
 	mkdir data
@@ -19,3 +10,24 @@ setup:
 clean:
 	rm data/MNIST/modified/*
 	rm model/*
+	rm data/feed_forward_output.pkl
+
+
+generate_data:
+	python generate_data.py
+
+train:
+	python model_train.py data/MNIST/modified/train_data_modified.pth model/trained_model.pth
+test:
+	python model_test.py model/trained_model.pth
+
+feed_forward:
+	python feed_forward.py
+
+find_outliers:
+	python find_outliers.py
+
+train_new:
+	python model_train.py data/MNIST/modified/train_data_filtered.pth model/trained_model_filtered.pth
+test_new:
+	python model_test.py model/trained_model_filtered.pth
