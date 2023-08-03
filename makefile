@@ -18,20 +18,20 @@ clean:
 
 
 data_generate:
-	python data_generate.py
+	python src/data_generate.py
 
 train:
-	python model_train.py data/MNIST/modified/train.pth model/poisoned.pth
+	python src/model_train.py data/MNIST/modified/train.pth model/poisoned.pth
 test:
-	python model_test.py model/poisoned.pth
+	python src/model_test.py model/poisoned.pth
 
 feed_forward:
-	python model_feed_forward.py
+	python src/model_feed_forward.py
 
 outlier_calculation:
-	python data_outlier_calculation.py
+	python src/data_outlier_calculation.py
 
 train_new:
-	python model_train.py data/MNIST/filtered/train.pth model/filtered.pth
+	python src/model_train.py data/MNIST/filtered/train.pth model/filtered.pth
 test_new:
-	python model_test.py model/filtered.pth
+	python src/model_test.py model/filtered.pth

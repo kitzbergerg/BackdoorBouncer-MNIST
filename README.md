@@ -12,15 +12,16 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 -   `makefile`: Contains commands to generate data, train and test the model, ...
 -   `data/`: Contains the data
 -   `model/`: Contains the trained models
+-   `src/`: Contains the actual python scripts. The scripts are supposed to be executed from the root folder using the makefile.
+    -   `data.py`: Definition of the custom poisoned data
+    -   `data_generate.py`: Execute to generate the datasets
+    -   `data_outlier_calculation.py`: Performs outlier detection
+    -   `data_outlier_functions.py`: Contains helper functions for outlier detection
+    -   `model.py`: Definition of the model
+    -   `model_train.py`: Execute to train the model
+    -   `model_test.py`: Execute to test the model
+    -   `model_feed_forward.py`: Evaluates the models output for given input data. Also saves layer representations
 -   `visualization/`: Contains tools to visualize the data
--   `data.py`: Definition of the custom poisoned data
--   `data_generate.py`: Execute to generate the datasets
--   `data_outlier_calculation.py`: Performs outlier detection
--   `data_outlier_functions.py`: Contains helper functions for outlier detection
--   `model.py`: Definition of the model
--   `model_train.py`: Execute to train the model
--   `model_test.py`: Execute to test the model
--   `model_feed_forward.py`: Evaluates the models output for given input data. Also saves layer representations
 
 ## Makefile
 
