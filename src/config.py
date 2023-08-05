@@ -1,6 +1,6 @@
 from torchvision import datasets, transforms
 
-from model import SimpleNet, ResNet, BasicBlock
+from model import ResNet, BasicBlock
 
 
 class Config:
@@ -16,7 +16,6 @@ class Config:
     @staticmethod
     def get_model():
         return ResNet(BasicBlock, [2, 2, 2])
-        # return SimpleNet()
 
     @staticmethod
     def get_train_data():
