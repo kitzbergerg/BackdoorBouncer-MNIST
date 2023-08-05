@@ -1,5 +1,7 @@
 __pycache__
 data
 model
-.Rhistory
-.RData
+
+visualization/*
+!visualization/visualize_data.R
+!visualization/visualize_images.py
