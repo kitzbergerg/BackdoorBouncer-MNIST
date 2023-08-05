@@ -4,11 +4,10 @@ from torch.utils.data import DataLoader
 import sys
 
 from config import Config
-from model import get_model
 
 
 # Load the trained model
-model = get_model()
+model = Config.get_model()
 model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 

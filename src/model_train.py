@@ -4,8 +4,8 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import sys
 
+from config import Config
 from data import ModifiedDataset
-from model import get_model
 
 # Load the datasets
 data_train = torch.load(sys.argv[1])
@@ -19,7 +19,7 @@ learning_rate = 0.001
 num_epochs = 5
 
 # Model, Loss, and Optimizer
-model = get_model()
+model = Config.get_model()
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 

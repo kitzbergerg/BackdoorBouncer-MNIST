@@ -2,11 +2,6 @@ import torch
 import torch.nn as nn
 
 
-def get_model():
-    return ResNet(BasicBlock, [2, 2, 2])
-    # return SimpleNet()
-
-
 # Define a simple 5-layer neural network
 class SimpleNet(nn.Module):
     def __init__(self):

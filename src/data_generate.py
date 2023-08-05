@@ -1,13 +1,11 @@
 import torch
-from torchvision import datasets, transforms
-import sys
 
 from config import Config
 from data import ModifiedDataset
 
 # Original MNIST Data
-data_train_original = datasets.MNIST(root="data", train=True, download=True)
-data_test_original = datasets.MNIST(root="data", train=False, download=True, transform=transforms.ToTensor())
+data_train_original = Config.get_train_data()
+data_test_original = Config.get_test_data()
 
 # Custom MNIST Data
 data_train_modified = ModifiedDataset(data_train_original, modify_percentage=Config.percentage_of_modified_data)

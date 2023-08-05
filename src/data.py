@@ -5,7 +5,7 @@ import random
 
 
 class ModifiedDataset(Dataset):
-    def __init__(self, data, modify_percentage=1.0):
+    def __init__(self, data, modify_percentage):
         self._validate_data(data)
 
         self.data = data.data.clone().float()

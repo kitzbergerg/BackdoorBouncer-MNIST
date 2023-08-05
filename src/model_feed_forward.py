@@ -5,10 +5,9 @@ import sys
 
 from config import Config
 from data import ModifiedDataset
-from model import get_model
 
 # Load the trained model
-model = get_model()
+model = Config.get_model()
 model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()
 
