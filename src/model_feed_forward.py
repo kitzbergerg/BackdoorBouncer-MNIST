@@ -1,13 +1,15 @@
 import torch
 from torch.utils.data import DataLoader
 import pickle
+import sys
 
+from config import Config
 from data import ModifiedDataset
 from model import get_model
 
 # Load the trained model
 model = get_model()
-model.load_state_dict(torch.load("model/poisoned.pth"))
+model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()
 
 # Attach the hook to the second to last layer
@@ -15,7 +17,7 @@ outputs = []
 hook = model.set_hook(outputs)
 
 # Load the datasets
-train_data = torch.load("data/MNIST/modified/train.pth")
+train_data = torch.load(Config.path_data_train_modified)
 
 # Create DataLoaders
 train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
@@ -39,5 +41,5 @@ with torch.no_grad():
 hook.remove()
 
 # Save the information to disk
-with open("data/feed_forward_output.pkl", "wb") as file:
+with open(Config.path_data_feed_forward, "wb") as file:
     pickle.dump(all_data, file)

@@ -3,6 +3,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 import sys
 
+from config import Config
 from model import get_model
 
 
@@ -12,8 +13,8 @@ model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 
 # Load the datasets
-data_test_original = torch.load("data/MNIST/original/test.pth")
-data_test_modified = torch.load("data/MNIST/modified/test.pth")
+data_test_original = torch.load(Config.path_data_test_original)
+data_test_modified = torch.load(Config.path_data_test_modified)
 
 # Create DataLoaders
 loader_test_original = DataLoader(data_test_original, batch_size=64, shuffle=False)
