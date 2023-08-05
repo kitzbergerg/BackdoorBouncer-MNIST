@@ -15,9 +15,11 @@ class CustomMNIST(Dataset):
         # Randomly select the indices of the images to modify
         indices_to_modify = random.sample(range(len(mnist_data)), num_to_modify)
 
-        # Modify the specified percentage of the images and labels
         for i in indices_to_modify:
-            self.data[i][-1][-1] = 255  # Set the bottom-right pixel to white
+            n = len(self.data[i])  # Assuming the image is square
+            for j in range(n):
+                self.data[i][j][j] = 255  # Set one diagonal to white
+                self.data[i][j][n-j-1] = 255  # Set the other diagonal to white
             self.targets[i] = 7  # Change the label to 7
             self.modified_flags[i] = True  # Indicate that it is a poisoned item
 

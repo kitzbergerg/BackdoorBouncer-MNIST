@@ -1,5 +1,6 @@
 import torch
 from torchvision import datasets, transforms
+import sys
 
 from data import CustomMNIST
 
@@ -8,7 +9,7 @@ data_train_original = datasets.MNIST(root="data", train=True, download=True)
 data_test_original = datasets.MNIST(root="data", train=False, download=True, transform=transforms.ToTensor())
 
 # Custom MNIST Data
-data_train_modified = CustomMNIST(data_train_original, modify_percentage=0.05)
+data_train_modified = CustomMNIST(data_train_original, modify_percentage=float(sys.argv[1]))
 data_test_modified = CustomMNIST(data_test_original, modify_percentage=1.0)
 
 # Save the datasets

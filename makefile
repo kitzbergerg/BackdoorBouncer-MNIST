@@ -18,7 +18,7 @@ clean:
 
 
 data_generate:
-	python src/data_generate.py
+	python src/data_generate.py 0.02
 
 train:
 	python src/model_train.py data/MNIST/modified/train.pth model/poisoned.pth
@@ -29,7 +29,7 @@ feed_forward:
 	python src/model_feed_forward.py
 
 outlier_calculation:
-	python src/data_outlier_calculation.py
+	python src/data_outlier_calculation.py 0.02
 
 train_new:
 	python src/model_train.py data/MNIST/filtered/train.pth model/filtered.pth

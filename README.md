@@ -47,10 +47,10 @@ The cleaned data is then used to train a new model which should ignore backdoor 
    This commands generates:
     - `model/poisoned.pth`: State of the trained poisoned model.
 3. `make test` evaluates the model on the clean and poisoned test data.
-4. `make feed_forward` saves the models outputs when feed-forwarding the poisoned training data. It additionally saves the values of the second layer in the neural net (which represent high level features).  
+4. `make feed_forward` saves the models outputs when feed-forwarding the poisoned training data. It additionally saves the values of the second to last layer in the neural net (which represent high level features).  
    This commands generates:
     - `data/feed_forward_output.pkl`: State of the poisoned model.
-5. `make outlier_calculation` performs outlier detection and generates a new dataset out of the poisoned one with the bad data removed (currently doesn't work).  
+5. `make outlier_calculation` performs outlier detection and generates a new dataset out of the poisoned one with the bad data removed.  
    This commands generates:
     - `data/MNIST/filtered/train.pth`: Training data with poisoned elements removed.
 6. `make train_new` trains a new model using the filtered data.  
