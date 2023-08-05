@@ -3,7 +3,7 @@ from collections import defaultdict
 import torch
 import sys
 
-from data import CustomMNIST
+from data import ModifiedDataset
 from data_outlier_functions import get_outlier_uuids
 
 with open("data/feed_forward_output.pkl", "rb") as file:
@@ -30,6 +30,6 @@ torch.save(data_train_filtered, "data/MNIST/filtered/train.pth")
 
 # Logging
 data_train_removed = [item for item in data_train_modified if item[2] in outlier_uuids]
-print(f"{(100 * len(data_train_removed) / len(feed_forward_data)):.2f}% of data was removed")
+print(f"{(100 * len(data_train_removed) / len(feed_forward_data)):.2f}% of the data was removed")
 print(f"{(100 * [item[3] for item in data_train_removed].count(True) / len(data_train_removed)):.2f}% of the removed data was poisoned")
 print(f"{(100 * [item[3] for item in data_train_filtered].count(True) / len(data_train_filtered)):.2f}% of the remaining data is poisoned")

@@ -4,7 +4,7 @@ import torch.nn as nn
 
 def get_model():
     return ResNet(BasicBlock, [2, 2, 2])
-    return SimpleNet()
+    # return SimpleNet()
 
 
 # Define a simple 5-layer neural network

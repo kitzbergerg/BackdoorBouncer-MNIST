@@ -1,19 +1,22 @@
 from torch.utils.data import Dataset
+from torch import Tensor
 import uuid
 import random
 
 
-class CustomMNIST(Dataset):
-    def __init__(self, mnist_data, modify_percentage=1.0):
-        self.data = mnist_data.data.clone().float()
-        self.targets = mnist_data.targets.clone()
-        self.uuids = [uuid.uuid4() for _ in range(len(mnist_data))]
-        self.modified_flags = [False] * len(mnist_data)
+class ModifiedDataset(Dataset):
+    def __init__(self, data, modify_percentage=1.0):
+        self._validate_data(data)
+
+        self.data = data.data.clone().float()
+        self.targets = data.targets.clone()
+        self.uuids = [uuid.uuid4() for _ in range(len(self.data))]
+        self.modified_flags = [False] * len(self.data)
 
         # Get the number of samples to modify
-        num_to_modify = int(len(mnist_data) * modify_percentage)
+        num_to_modify = int(len(self.data) * modify_percentage)
         # Randomly select the indices of the images to modify
-        indices_to_modify = random.sample(range(len(mnist_data)), num_to_modify)
+        indices_to_modify = random.sample(range(len(self.data)), num_to_modify)
 
         # Modify the specified percentage of the images and labels
         for i in indices_to_modify:
@@ -31,3 +34,16 @@ class CustomMNIST(Dataset):
         item_uuid = str(self.uuids[idx])
         is_modified = self.modified_flags[idx]
         return image, target, item_uuid, is_modified
+
+    @staticmethod
+    def _validate_data(data):
+        assert hasattr(data, "data") and hasattr(data, "targets"), "Both 'data' and 'targets' attributes should be present"
+        assert isinstance(data.data, Tensor) and isinstance(data.targets, Tensor), "Both 'data' and 'targets' attributes should be of type 'Tensor'"
+        assert len(data.data) == len(data.targets), "Both 'data' and 'targets' tensors should have the same length"
+
+        assert isinstance(data.data[0], Tensor), "1st data row should be a 2D array of image pixels (of type 'Tensor')"
+        assert isinstance(data.data[0][0], Tensor), "1st row of images should be of type 'Tensor'"
+        assert isinstance(data.data[0][0][0], Tensor), "First pixel should be of type 'Tensor'"
+        assert isinstance(data.data[0][0][0].item(), int), "First pixel value should be an integer"
+
+        assert isinstance(data.targets[0].item(), int), "Target value should be an integer"

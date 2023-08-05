@@ -3,7 +3,7 @@ from scipy.linalg import svd
 
 
 def get_outlier_uuids(label: int, uuids: list[str], feature_representation: list[list[float]], data_size: int, percentage_of_poisoned_data: float) -> list[str]:
-    if not (
+    assert (
         isinstance(label, int)
         and isinstance(uuids, list)
         and isinstance(uuids[0], str)
@@ -11,9 +11,7 @@ def get_outlier_uuids(label: int, uuids: list[str], feature_representation: list
         and isinstance(feature_representation[0], list)
         and isinstance(feature_representation[0][0], float)
         and len(uuids) == len(feature_representation)
-    ):
-        print("Incorrect input")
-        exit(1)
+    ), "Incorrect input"
 
     layer_matrix = np.array(feature_representation)
     r_hat = layer_matrix.mean(axis=0)

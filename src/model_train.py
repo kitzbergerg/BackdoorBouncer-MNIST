@@ -4,7 +4,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 import sys
 
-from data import CustomMNIST
+from data import ModifiedDataset
 from model import get_model
 
 # Load the datasets
