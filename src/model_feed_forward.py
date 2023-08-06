@@ -16,7 +16,7 @@ outputs = []
 hook = model.set_hook(outputs)
 
 # Load the datasets
-train_data = torch.load(Config.path_data_train_modified)
+train_data = torch.load(sys.argv[2])
 
 # Create DataLoaders
 train_loader = DataLoader(train_data, batch_size=64, shuffle=True)
@@ -40,5 +40,5 @@ with torch.no_grad():
 hook.remove()
 
 # Save the information to disk
-with open(Config.path_data_feed_forward, "wb") as file:
+with open(sys.argv[3], "wb") as file:
     pickle.dump(all_data, file)

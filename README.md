@@ -28,21 +28,19 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 -   `all`: Run the whole project from start to finish (run `setup` first)
 -   `clean`: Remove datasets and models
 -   `setup`: Create directories
--   `data_generate`: Generates the datasets
--   `train`: Trains the model (requires the generated datasets)
+-   `data_generate`: Generates the training dataset
+-   `train`: Trains the model (requires the generated training data)
 -   `test`: Test the model (requires the trained model)
 -   `feed_forward`: Saves the output of the model + the representations for the second to layer for the training data (requires the generated datasets and model)
--   `outlier_calculation`: Performs outlier detection on the feed-forward data and save new training data with removed outliers (requires the feed forwards data)
--   `train_new`: Trains a new model on outlier free dataset (requires the filtered dataset)
+-   `outlier_calculation`: Performs outlier detection on the feed-forward data and save new training data with removed outliers (requires the feed-forward data)
+-   `train_new`: Trains a new model on the outlier free data (requires the filtered data)
 -   `test_new`: Test the new model (requires the model trained on outlier free data)
 
 ## Data flow
 
-1. `make data_generate` loads the MNIST data.  
+1. `make data_generate` generates the training data containing additional UUIDs and positions where poisoned elements should be placed.  
    This command generates:
-    - `data/modified/train.pth`: Training data containing poisoned elements
-    - `data/original/test.pth`: Test data containing no poisoned elements
-    - `data/modified/test.pth`: Test data consisting only of poisoned elements (bottom right pixel is white and label is always 7)
+    - `data/modified/train.pth`: Generated training data (does not contains poisoned images, they will be applied later on)
 2. `make train` then trains a model on the poisoned dataset.  
    This commands generates:
     - `model/poisoned.pth`: State of the trained poisoned model.

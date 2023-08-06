@@ -26,12 +26,9 @@ def visualize_data(data_loader, num_images):
         plt.show()
 
 
-# Load the modified datasets
-data = torch.load(Config.path_data_train_modified)
-
 # Create DataLoaders
 batch_size = 20
-loader = DataLoader(data, batch_size=batch_size, shuffle=True)
+loader = DataLoader(ModifiedDataset(Config.get_test_data(), 1.0), batch_size=batch_size, shuffle=True)
 
 # Visualize some images from the modified test data
 visualize_data(loader, batch_size)

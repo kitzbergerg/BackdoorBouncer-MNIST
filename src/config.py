@@ -14,12 +14,9 @@ class Datasets(Enum):
 
 
 class Config:
-    path_data_train_modified = "data/modified/train.pth"
-    path_data_train_filtered = "data/filtered/train.pth"
-
     percentage_of_modified_data = 0.02
 
-    dataset = Datasets.MNIST
+    dataset = Datasets.CIFAR
 
     @staticmethod
     def get_model():

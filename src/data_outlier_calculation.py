@@ -7,7 +7,7 @@ from config import Config
 from data import ModifiedDataset
 from data_outlier_functions import get_outlier_uuids
 
-with open(Config.path_data_feed_forward, "rb") as file:
+with open(sys.argv[1], "rb") as file:
     feed_forward_data = pickle.load(file)
 
 # Using defaultdict to organize data by label
@@ -25,9 +25,9 @@ for label, data_group in data_by_label.items():
 
     outlier_uuids.update(get_outlier_uuids(label, uuids, feature_representations, len(feed_forward_data), Config.percentage_of_modified_data))
 
-data_train_modified = torch.load(Config.path_data_train_modified)
+data_train_modified = torch.load(sys.argv[2])
 data_train_filtered = [item for item in data_train_modified if item[2] not in outlier_uuids]
-torch.save(data_train_filtered, Config.path_data_train_filtered)
+torch.save(data_train_filtered, sys.argv[3])
 
 # Logging
 data_train_removed = [item for item in data_train_modified if item[2] in outlier_uuids]
