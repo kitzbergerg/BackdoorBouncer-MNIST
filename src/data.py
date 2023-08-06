@@ -1,3 +1,4 @@
+from torch.utils.data.dataset import Dataset
 from torchvision.datasets import VisionDataset
 import uuid
 import random
@@ -5,10 +6,9 @@ import random
 from config import Config
 
 
-class ModifiedDataset(VisionDataset):
-    def __init__(self, data: VisionDataset, modify_percentage: float):
-        self.data = data.data
-        self.targets = data.targets
+class ModifiedDataset(Dataset):
+    def __init__(self, data, modify_percentage: float):
+        self.data = data
         self.uuids = [uuid.uuid4() for _ in range(len(self.data))]
 
         # Create a list of True and False with random positions. The percentage of True is given by modify_percentage
@@ -20,12 +20,11 @@ class ModifiedDataset(VisionDataset):
         return len(self.data)
 
     def __getitem__(self, idx):
-        image = self.data[idx]
-        target = self.targets[idx]
+        image, target = self.data[idx]
         uuid = str(self.uuids[idx])
         is_modified = self.modified_flags[idx]
         if is_modified:
-            target, image = Config.modify_data(target, image)
+            image, target = Config.modify_data(image, target)
 
         image = Config.get_transform()(image)
         return image, target, uuid, is_modified

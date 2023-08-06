@@ -12,12 +12,10 @@ model = Config.get_model()
 model.load_state_dict(torch.load(sys.argv[1]))
 model.eval()  # Set the model to evaluation mode
 
-# Load the datasets
-data_test_modified = torch.load(Config.path_data_test_modified)
 
 # Create DataLoaders
 loader_test_original = DataLoader(ModifiedDataset(Config.get_test_data(), 0.0), batch_size=64, shuffle=False)
-loader_test_modified = DataLoader(data_test_modified, batch_size=64, shuffle=False)
+loader_test_modified = DataLoader(ModifiedDataset(Config.get_test_data(), 1.0), batch_size=64, shuffle=False)
 
 
 # Test the model
