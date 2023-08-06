@@ -16,7 +16,7 @@ class Datasets(Enum):
 class Config:
     percentage_of_modified_data = 0.02
 
-    dataset = Datasets.CIFAR
+    dataset = Datasets.GTSRB
 
     @staticmethod
     def get_model():
@@ -26,7 +26,7 @@ class Config:
             case Datasets.CIFAR:
                 return ResNet(BasicBlock, [3, 3, 3], 10, 3)
             case Datasets.GTSRB:
-                return ResNet(BasicBlock, [5, 5, 5], 10, 3)
+                return ResNet(BasicBlock, [5, 5, 5], 43, 3)
 
     @staticmethod
     def get_transform():
@@ -68,11 +68,7 @@ class Config:
                 image.putpixel((0, 0), (255, 255, 255))
                 return image, 7
             case Datasets.GTSRB:
-                print()
-                print()
-                print(image)
-                print(type(image))
-                print(target)
-                print(type(target))
-                image.putpixel((0, 0), (255, 255, 255))
+                for x in range(5):
+                    for y in range(5):
+                        image.putpixel((x, y), (255, 255, 255))
                 return image, 7
