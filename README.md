@@ -40,9 +40,9 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 
 1. `make data_generate` loads the MNIST data.  
    This command generates:
-    - `data/MNIST/modified/train.pth`: Training data containing poisoned elements
-    - `data/MNIST/original/test.pth`: Test data containing no poisoned elements
-    - `data/MNIST/modified/test.pth`: Test data consisting only of poisoned elements (bottom right pixel is white and label is always 7)
+    - `data/modified/train.pth`: Training data containing poisoned elements
+    - `data/original/test.pth`: Test data containing no poisoned elements
+    - `data/modified/test.pth`: Test data consisting only of poisoned elements (bottom right pixel is white and label is always 7)
 2. `make train` then trains a model on the poisoned dataset.  
    This commands generates:
     - `model/poisoned.pth`: State of the trained poisoned model.
@@ -52,7 +52,7 @@ The cleaned data is then used to train a new model which should ignore backdoor 
     - `data/feed_forward_output.pkl`: State of the poisoned model.
 5. `make outlier_calculation` performs outlier detection and generates a new dataset out of the poisoned one with the bad data removed.  
    This commands generates:
-    - `data/MNIST/filtered/train.pth`: Training data with poisoned elements removed.
+    - `data/filtered/train.pth`: Training data with poisoned elements removed.
 6. `make train_new` trains a new model using the filtered data.  
    This commands generates:
     - `model/filtered.pth`: State of the trained clean model.
