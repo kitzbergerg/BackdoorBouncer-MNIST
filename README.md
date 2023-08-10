@@ -1,6 +1,6 @@
 # Backdoor attack & prevention
 
-This project aims to demonstrate a simple backdoor attack on the MNIST dataset following the approach in [this paper](https://arxiv.org/pdf/1811.00636.pdf).
+This project aims to demonstrate a simple backdoor attack on the MNIST, CIFAR-10 and GTSRB datasets following the approach in [this paper](https://arxiv.org/pdf/1811.00636.pdf).
 
 In a second step the poisoned data should be removed from the training data.
 This is done by using outlier detection.
@@ -12,9 +12,10 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 -   `makefile`: Contains commands to generate data, train and test the model, ...
 -   `data/`: Contains the data
 -   `model/`: Contains the trained models
--   `src/`: Contains the actual python scripts. The scripts are supposed to be executed from the root folder using the makefile.
+-   `src/`: Contains the python scripts. The scripts are supposed to be executed from the root folder using the makefile.
+    -   `config.py`: Configuration of which dataset to use, which model is used for which dataset, how to modify the dataset, ...
     -   `data.py`: Definition of the custom poisoned data
-    -   `data_generate.py`: Execute to generate the datasets
+    -   `data_generate.py`: Execute to generate the poisoned dataset
     -   `data_outlier_calculation.py`: Performs outlier detection
     -   `data_outlier_functions.py`: Contains helper functions for outlier detection
     -   `model.py`: Definition of the model
@@ -26,8 +27,8 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 ## Makefile
 
 -   `all`: Run the whole project from start to finish (run `setup` first)
--   `clean`: Remove datasets and models
 -   `setup`: Create directories
+-   `clean`: Remove datasets and models
 -   `data_generate`: Generates the training dataset
 -   `train`: Trains the model (requires the generated training data)
 -   `test`: Test the model (requires the trained model)
@@ -35,6 +36,7 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 -   `outlier_calculation`: Performs outlier detection on the feed-forward data and save new training data with removed outliers (requires the feed-forward data)
 -   `train_new`: Trains a new model on the outlier free data (requires the filtered data)
 -   `test_new`: Test the new model (requires the model trained on outlier free data)
+-   `feed_forward_new`: Same as `feed_forward`, but uses newly trained model
 
 ## Data flow
 
