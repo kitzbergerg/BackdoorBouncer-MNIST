@@ -13,7 +13,7 @@ setup:
 	mkdir data/filtered
 	mkdir data/feed_forward
 	mkdir model
-	pip install torch torchvision numpy scipy matplotlib
+	python -m pip install torch===2.0.1 torchvision===0.15.2 numpy===1.24.2 scipy===1.10.1 matplotlib===3.7.2
 
 clean:
 	rm data/modified/*
