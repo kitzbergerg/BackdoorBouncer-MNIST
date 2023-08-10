@@ -27,7 +27,7 @@ The cleaned data is then used to train a new model which should ignore backdoor 
 ## Makefile
 
 -   `all`: Run the whole project from start to finish (run `setup` first)
--   `setup`: Create directories
+-   `setup`: Create directories and download python dependencies
 -   `clean`: Remove datasets and models
 -   `data_generate`: Generates the training dataset
 -   `train`: Trains the model (requires the generated training data)
