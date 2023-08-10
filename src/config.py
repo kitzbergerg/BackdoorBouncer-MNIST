@@ -16,7 +16,7 @@ class Datasets(Enum):
 class Config:
     percentage_of_modified_data = 0.02
 
-    dataset = Datasets.GTSRB
+    dataset = Datasets.MNIST
 
     @staticmethod
     def get_model():
